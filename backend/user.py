@@ -3,12 +3,14 @@ from typing import Dict, List
 class User:
     username: str
     password: str
+    user_type: str
     def login(self, username, password) -> int:
         if self.username == username and self.password == password:
             return 0
         return 1
 
 class Customer(User):
+    user_type = "cust"
     def __init__(self, id, name, email, branch_id, username, password, accounts: Dict[int,Account] = {}) -> None:
         self.id = id
         self.name = name
@@ -24,8 +26,13 @@ class Customer(User):
         self.accounts[account.id] = account
         return 0
 
-    def view_accounts(self) -> Dict[int, Account]:
-        return self.accounts
+    def print_account(self, id) -> None:
+        account = self.accounts[id]
+        print(f"Id: {account.id}, Number: {account.number}, Balance: {account.balance}")
+
+    def print_accounts(self) -> None:
+        for id in self.accounts.keys():
+            self.print_account(id)
 
     def get_account(self, id) -> Account | None:
         if id in self.accounts:
@@ -66,6 +73,7 @@ class Customer(User):
 
 
 class Admin(User):
+    user_type = "admin"
     def __init__(self, id, name, email, username, password) -> None:
         self.id = id
         self.name = name
