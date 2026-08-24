@@ -28,8 +28,7 @@ def main():
             print(f"Successfully authenticated as {real_user.username}")
             auth = 0
 
-    assert real_user is not None
-    if real_user.user_type == "cust":
+    if isinstance(real_user, Customer):
         while True:
             option = int(input("""Pick an option:
             1. View accounts
@@ -44,13 +43,16 @@ def main():
                 case 2:
                     real_user.print_account(int(input("Please input account id: ")))
                 case 3:
-                    real_user.get_account(int(input("Please input account id: "))).deposit(int(input("Please input deposit amount: ")))
+                    real_user.deposit(int(input("Please input account id: ")), int(input("Please input deposit amount: ")))
                 case 4:
-                    real_user.get_account(int(input("Please input account id: "))).withdraw(int(input("Please input withdrawal amount: ")))
+                    real_user.withdraw(int(input("Please input account id: ")), int(input("Please input withdrawal amount: ")))
                 case 5:
                     source = int(input("Please input source account id: "))
                     dest = int(input("Please input destination account id: "))
                     amount = int(input("Please input transfer amount: "))
                     real_user.transfer(source, dest, amount)
+
+    elif isinstance(real_user, Admin):
+        pass
 
 main()
