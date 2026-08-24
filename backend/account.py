@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 class Account(ABC):
+    account_type: str
     def __init__(self, number, id) -> None:
         self.number = number
         self.id = id
@@ -22,6 +23,7 @@ class Account(ABC):
 
 class SavingsAccount(Account):
     minimum = 0
+    account_type = "savings"
     def withdraw(self, amount) -> int:
         # check if withdrawal goes under minimum balance
         if self.balance - amount < self.minimum:
@@ -30,6 +32,7 @@ class SavingsAccount(Account):
 
 class CheckingAccount(Account):
     max_overdraft = 0
+    account_type = "checking"
     def withdraw(self, amount) -> int:
         if amount - self.balance > self.max_overdraft:
             return 2

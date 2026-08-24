@@ -1,6 +1,9 @@
 from account import *
 from typing import Dict, List
-class User:
+class User(ABC):
+    id: int
+    name: str
+    email: str
     username: str
     password: str
     user_type: str
@@ -8,6 +11,9 @@ class User:
         if self.username == username and self.password == password:
             return 0
         return 1
+
+    def print_self(self) -> None:
+        print(f"Name: {self.name}, ID: {self.id}, Email: {self.email}, Type: {self.user_type}")
 
 class Customer(User):
     user_type = "cust"
@@ -28,7 +34,7 @@ class Customer(User):
 
     def print_account(self, id) -> None:
         account = self.accounts[id]
-        print(f"Id: {account.id}, Number: {account.number}, Balance: {account.balance}")
+        print(f"Id: {account.id}, Number: {account.number}, Type: {account.account_type}, Balance: {account.balance}")
 
     def print_accounts(self) -> None:
         for id in self.accounts.keys():
