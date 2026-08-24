@@ -9,14 +9,14 @@ class User:
         return 1
 
 class Customer(User):
-    def __init__(self, id, name, email, branch_id, username, password) -> None:
+    def __init__(self, id, name, email, branch_id, username, password, accounts: Dict[int,Account] = {}) -> None:
         self.id = id
         self.name = name
         self.email = email
         self.branch_id = branch_id
-        self.accounts: Dict[int, Account] = {}
         self.username = username
         self.password = password
+        self.accounts: Dict[int, Account] = accounts
 
     def add_account(self, account: Account) -> int:
         if account.id in self.accounts:
